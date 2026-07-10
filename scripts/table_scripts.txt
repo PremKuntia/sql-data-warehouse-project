@@ -1,1 +1,65 @@
+create table bronze.crm_cust_info
+ (
+    cst_id INT PRIMARY KEY,
+    cst_key VARCHAR(20) NOT NULL,
+    cst_firstname VARCHAR(50) NOT NULL,
+    cst_lastname VARCHAR(50) NOT NULL,
+    cst_marital_status CHAR(1),
+    cst_gndr CHAR(1),
+    cst_create_date DATE
+);
 
+ALTER TABLE bronze.prd_info RENAME TO crm_prd_info;
+
+CREATE TABLE bronze.prd_info (
+    prd_id INT PRIMARY KEY,
+    prd_key VARCHAR(50) NOT NULL,
+    prd_nm VARCHAR(100) NOT NULL,
+    prd_cost DECIMAL(10,2),
+    prd_line CHAR(1),
+    prd_start_dt DATE,
+    prd_end_dt DATE
+);
+
+ALTER TABLE bronze.sales_details RENAME TO crm_sales_details;
+
+CREATE TABLE bronze.sales_details (
+    sls_ord_num VARCHAR(20) NOT NULL,
+    sls_prd_key VARCHAR(50) NOT NULL,
+    sls_cust_id INT NOT NULL,
+    sls_order_dt DATE NOT NULL,
+    sls_ship_dt DATE,
+    sls_due_dt DATE,
+    sls_sales DECIMAL(10,2),
+    sls_quantity INT,
+    sls_price DECIMAL(10,2),
+    PRIMARY KEY (sls_ord_num, sls_prd_key)
+);
+
+
+-- 
+ALTER TABLE bronze.CUST_AZ12 RENAME TO erp_CUST_AZ12;
+
+create table bronze.CUST_AZ12
+ (cid VARCHAR(20) PRIMARY KEY,
+    bdate DATE,
+    gen VARCHAR(10)
+    
+);
+
+ALTER TABLE bronze.LOC_A101 RENAME TO erp_LOC_A101;
+
+CREATE TABLE bronze.LOC_A101 (
+   cid VARCHAR(20) PRIMARY KEY,
+    cntry VARCHAR(20)
+);
+
+
+ALTER TABLE bronze.PX_CAT_G1V2 RENAME TO erp_PX_CAT_G1V2;
+
+CREATE TABLE bronze.PX_CAT_G1V2 (
+    id VARCHAR(10) PRIMARY KEY,
+    cat VARCHAR(50) NOT NULL,
+    subcat VARCHAR(50) NOT NULL,
+    maintenance VARCHAR(3) NOT NULL
+);
