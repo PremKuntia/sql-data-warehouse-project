@@ -1,0 +1,14 @@
+------ to check columns and datatypes
+SELECT
+    ordinal_position,
+    column_name,
+    data_type,
+    character_maximum_length,
+    numeric_precision,
+    numeric_scale,
+    is_nullable,
+    column_default
+FROM information_schema.columns
+WHERE table_schema = 'bronze'
+  AND table_name = 'crm_sales_details'
+ORDER BY ordinal_position;
