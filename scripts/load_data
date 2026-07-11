@@ -1,0 +1,59 @@
+COPY bronze.crm_cust_info
+FROM 'F:\DW\sql-data-warehouse-project\datasets\source_crm\cust_info.csv'
+WITH (
+    FORMAT csv,
+    HEADER true,
+    DELIMITER ','
+);
+
+-- check null columns 
+SELECT
+    column_name,
+    is_nullable
+FROM information_schema.columns
+WHERE table_name = 'crm_prd_info';
+
+-- droping null
+ALTER TABLE bronze.crm_cust_info
+-- ALTER COLUMN cst_firstname DROP NOT NULL;
+ALTER COLUMN cst_key DROP NOT NULL
+
+-- to check for primary key
+SELECT constraint_name
+FROM information_schema.table_constraints
+WHERE table_schema = 'bronze'
+  AND table_name = 'crm_cust_info'
+
+-- drop primary key
+Alter table bronze.crm_cust_info 
+drop constraint crm_cust_info_pkey
+  AND constraint_type = 'PRIMARY KEY';
+
+-- truncate and load
+Truncate table bronze.crm_cust_info;
+
+COPY bronze.crm_cust_info
+FROM 'F:\DW\sql-data-warehouse-project\datasets\source_crm\cust_info.csv'
+WITH (
+    FORMAT csv,
+    HEADER true,
+    DELIMITER ','
+);
+
+
+select * from bronze.crm_cust_info
+
+SELECT current_database();
+
+
+
+SELECT schema_name
+FROM information_schema.schemata
+ORDER BY schema_name;
+
+GRANT USAGE, CREATE
+ON SCHEMA bronze
+TO codex_agent;
+
+
+
